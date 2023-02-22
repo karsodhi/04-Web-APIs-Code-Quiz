@@ -46,17 +46,18 @@ button:hover {
 
 ol {
   display: inline-block;
-  margin: 5px;
   cursor: pointer;
   font-family:Georgia, 'Times New Roman', Times, serif;
   font-size: 175%;
   background-color:red;
-  border-radius: 5px;
-  padding: 2px 10px;
   color: white;
-  border: 0;
-  transition: background-color 0.1s;
-}
+  }
+ 
+
 ol:hover {
   background-color: silver;
+}
+
+#timerHolder {
+  font-size: 175%;
 }

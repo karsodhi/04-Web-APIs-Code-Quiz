@@ -8,6 +8,7 @@ var feedback = document.querySelector("#feedback");
 var counterTimer;
 var timer;
 var score = 0
+var option= document.querySelector(".listoption")
 var questionsArray = [
     {
         question:"Arrays in Javascript can be used to store", 
@@ -75,15 +76,17 @@ function showQuestion1(){
     // below is list items aka choices for question
     var choices=document.getElementById("choices1")
     for (var i=0;i<questionsArray[0].choices.length;i++){
-        var listItem=document.createElement("li")
+        var listItem=document.querySelector(".answer"+i+1)
         listItem.setAttribute("id",questionsArray[0].choices[i])
         listItem.textContent=questionsArray[0].choices[i]
         choices.append(listItem)
 
-        listItem.addEventListener("click",gradeAnswer)
+
     }
+}
     //check which choice user picked and do something
     function gradeAnswer(e){
+        console.log("click")
         if(e.target.id === questionsArray[0].correctAnswer){
             score += 10 //add whatever score
             // User selected the correct answer 
@@ -96,7 +99,8 @@ function showQuestion1(){
             console.log("Wrong!");
         }
     }
-
+    .addEventListener("click",gradeAnswer)
+    
     function showQuestion2(){
         var questionHolder = document.getElementById("question2")
         var question = document.createElement("h2")
@@ -110,18 +114,16 @@ function showQuestion1(){
             listItem.textContent=questionsArray[1].choices[i]
             choices.append(listItem)
     
-            listItem.addEventListener("click",gradeAnswer)
-        }
-        //check which choice user picked and do something
-        function gradeAnswer(e){
-            if(e.target.id === questionsArray[1].correctAnswer){
-                score += 10 //add whatever score
-                showQuestion3()
-            } else {
-                showQuestion3()
-                minusTimer()
-            }
         }
     }
-}
+        // //check which choice user picked and do something
+        // function gradeAnswer(e){
+        //     if(e.target.id === questionsArray[1].correctAnswer){
+        //         score += 10 //add whatever score
+        //         showQuestion3()
+        //     } else {
+        //         showQuestion3()
+        //         minusTimer()
+        //     }
+        // }
 
