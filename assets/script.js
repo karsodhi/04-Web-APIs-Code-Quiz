@@ -6,7 +6,6 @@ var start = document.querySelector("#start");
 var initials = document.querySelector("#initials");
 var feedback = document.querySelector("#feedback");
 var counterTimer;
-var timer;
 var score = 0
 var questionIndex = 0;
 var questionsArray = [
@@ -37,15 +36,15 @@ var questionsArray = [
         },
 ]
 function startTime() {
-    timer=setInterval(function(){
-counterTimer--;
-timerHolder.textContent=counterTimer;
-if (counterTimer === 0){
-    clearInterval(timer)
-    // invoke function that loses the game. lose game()
-    loseGame()
-}
-    },1000)
+    var timeInterval=setInterval(function(){
+    counterTimer--;
+    timerHolder.textContent=counterTimer;
+    if (counterTimer === 0){
+        clearInterval(timeInterval)
+        // invoke function that loses the game. lose game()
+        loseGame()
+    }
+        },1000)
 }
 function minusTimer() {
     counterTimer-=5
@@ -65,6 +64,11 @@ function startQuiz(){
 function runQuiz() {
     if (questionIndex === 5) {
         console.log('end game');
+        // when the quiz is finished with time remaining
+        //   capture the time remaining
+        //  put time remaining in local storage
+        //  and display high score
+
     } else {
         var choicesArea = document.querySelector('.answers');
         document.getElementById('questions').classList.remove('hide');
