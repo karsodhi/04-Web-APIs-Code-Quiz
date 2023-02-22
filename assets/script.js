@@ -8,37 +8,33 @@ var feedback = document.querySelector("#feedback");
 var counterTimer;
 var timer;
 var score = 0
-var option= document.querySelector(".listoption")
+var questionIndex = 0;
 var questionsArray = [
     {
-        question:"Arrays in Javascript can be used to store", 
+        question:"Arrays in Javascript can be used to store",
         choices:["numbers", "strings", "booleans", "all the above",],
         correctAnswer:"all the above"
     },
         {
-            question:"Which method returns the length of a string", 
+            question:"Which method returns the length of a string",
             choices:["length()", "size()", "index()", "array()",],
             correctAnswer:"length()"
         },
-    
         {
-            question:"Inside which element do you put Javascript?", 
+            question:"Inside which element do you put Javascript?",
             choices:["<var>", "<section>", "<footer>", "<script>",],
             correctAnswer:"<script>"
         },
-    
         {
-            question:"What is a element that represents TRUE or FALSE values", 
+            question:"What is a element that represents TRUE or FALSE values",
             choices:["boolean", "array", "string", "condition",],
             correctAnswer:"boolean"
         },
-    
         {
-            question:"The condition in an if/else statement is enclosed with", 
+            question:"The condition in an if/else statement is enclosed with",
             choices:["curley brackets", "square brackets", "parenthesis", "quotation marks",],
             correctAnswer:"parenthesis"
         },
-    
 ]
 function startTime() {
     timer=setInterval(function(){
@@ -51,7 +47,6 @@ if (counterTimer === 0){
 }
     },1000)
 }
-
 function minusTimer() {
     counterTimer-=5
 }
@@ -59,71 +54,42 @@ function loseGame() {
     localStorage.setItem("currentScore",score)
     // This is where I return my user to the end of the HTML (localstore.getitem)
 }
-
 start.addEventListener("click",startQuiz)
 function startQuiz(){
     counterTimer=60;
-var startButton = document.getElementById("startDiv")
-startButton.style.display="none"
-startTime()
-showQuestion1()
+    var startButton = document.getElementById("startDiv")
+    startButton.style.display="none"
+    startTime()
+    runQuiz();
 }
-function showQuestion1(){
-    var questionHolder = document.getElementById("question1")
-    var question = document.createElement("h2")
-    question.textContent=questionsArray[0].question
-    questionHolder.prepend(question)
-    // below is list items aka choices for question
-    var choices=document.getElementById("choices1")
-    for (var i=0;i<questionsArray[0].choices.length;i++){
-        var listItem=document.querySelector(".answer"+i+1)
-        listItem.setAttribute("id",questionsArray[0].choices[i])
-        listItem.textContent=questionsArray[0].choices[i]
-        choices.append(listItem)
-
-
-    }
-}
-    //check which choice user picked and do something
-    function gradeAnswer(e){
-        console.log("click")
-        if(e.target.id === questionsArray[0].correctAnswer){
-            score += 10 //add whatever score
-            // User selected the correct answer 
-            console.log("Correct!");
-            showQuestion2()
-        } else {
-            showQuestion2()
-            minusTimer()
-            // user selected the wrong answer
-            console.log("Wrong!");
+function runQuiz() {
+    if (questionIndex === 5) {
+        console.log('end game');
+    } else {
+        var choicesArea = document.querySelector('.answers');
+        document.getElementById('questions').classList.remove('hide');
+        var currentQuestion = questionsArray[questionIndex];
+        var questionTitle = document.getElementById('question-title');
+        questionTitle.textContent= currentQuestion.question;
+        choicesArea.innerHTML= '';
+        for (var i = 0; i < currentQuestion.choices.length; i++) {
+            var option = currentQuestion.choices[i]
+            var optionButton = document.createElement('button');
+            optionButton.setAttribute('class', 'option')
+            optionButton.setAttribute('value', option)
+            optionButton.textContent = option
+            answers.appendChild(optionButton)
         }
     }
-    .addEventListener("click",gradeAnswer)
-    
-    function showQuestion2(){
-        var questionHolder = document.getElementById("question2")
-        var question = document.createElement("h2")
-        question.textContent=questionsArray[1].question
-        questionHolder.prepend(question)
-        // below is list items aka choices for question
-        var choices=document.getElementById("choices1")
-        for (var i=0;i<questionsArray[1].choices.length;i++){
-            var listItem=document.createElement("li")
-            listItem.setAttribute("id",questionsArray[1].choices[i])
-            listItem.textContent=questionsArray[1].choices[i]
-            choices.append(listItem)
-    
-        }
+}
+function makeChoice(event) {
+    if (event.target.value === questionsArray[questionIndex].correctAnswer) {
+        console.log('correct')
+    } else {
+        console.log('incorrect')
     }
-        // //check which choice user picked and do something
-        // function gradeAnswer(e){
-        //     if(e.target.id === questionsArray[1].correctAnswer){
-        //         score += 10 //add whatever score
-        //         showQuestion3()
-        //     } else {
-        //         showQuestion3()
-        //         minusTimer()
-        //     }
-        // }
+    questionIndex++
+    runQuiz()
+}
+answers.onclick=makeChoice;
 
